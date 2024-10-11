@@ -23,6 +23,32 @@ public class PlayerController : MonoBehaviour
         Vector2 movement = new Vector2(movementX, movementY);
         rb.AddForce(movement * speed);
 
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("normalPlatform"))
+        {
+            if (rb.transform.position.y > go.transform.position.y)
+            {
+                Rigidbody2D goRb = go.GetComponent<Rigidbody2D>();
+                if (goRb != null)
+                {
+                    goRb.simulated = true;
+                }
+
+            }
+        }
+
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("jumperPlatform"))
+        {
+            if (rb.transform.position.y > go.transform.position.y)
+            {
+                Rigidbody2D goRb = go.GetComponent<Rigidbody2D>();
+                if (goRb != null)
+                {
+                    goRb.simulated = true;
+                }
+
+            }
+        }
+
 
     }
 
