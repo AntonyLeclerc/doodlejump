@@ -20,10 +20,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*Vector2 movement = new Vector2(movementX, movementY);
+        Vector2 movement = new Vector2(movementX, movementY);
         rb.AddForce(movement * speed);
 
-                
+                /*
 
         foreach (GameObject go in GameObject.FindGameObjectsWithTag("jumperPlatform"))
         {

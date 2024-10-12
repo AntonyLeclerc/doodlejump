@@ -6,6 +6,9 @@ TagManager:
   tags:
   - normalPlatform
   - jumperPlatform
+  - player
+  - movingPlatform
+  - breakingPlatform
   layers:
   - Default
   - TransparentFX

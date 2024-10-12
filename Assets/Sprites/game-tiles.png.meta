@@ -181,7 +181,7 @@ TextureImporter:
         width: 57
         height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -189,6 +189,90 @@ TextureImporter:
       bones: []
       spriteID: ef3cd023e277a9a4885c6d2cec87d434
       internalID: 184042734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: breaking_platform
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 424
+        width: 60
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22b4143fe8bdbb1408c5993e875933fa
+      internalID: 211758764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: breaking_platform2
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 400
+        width: 61
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c6c65c206a92e046a141432d2566a8b
+      internalID: -439193586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: breaking_platform3
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 368
+        width: 57
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53dee51c663af3e4b97f7e6bd9d103ca
+      internalID: -932012243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: breaking_platform4
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 331
+        width: 60
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f53cfd7f02b72042b4fabc6558f726b
+      internalID: 826177686
       vertices: []
       indices: 
       edges: []
@@ -208,6 +292,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      breaking_platform: 211758764
+      breaking_platform2: -439193586
+      breaking_platform3: -932012243
+      breaking_platform4: 826177686
       game-tiles_0: 1142662207
       game-tiles_1: 2022362672
       moving_plateforme: -1001595729
