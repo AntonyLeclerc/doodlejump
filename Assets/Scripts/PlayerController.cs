@@ -10,11 +10,28 @@ public class PlayerController : MonoBehaviour
     private float movementY;
     public float speed = 3.0f;
 
+    private float leftBound;    // Limite gauche de l'écran (plateforme bleue)
+    private float rightBound;   // Limite droite de l'écran (plateforme bleue)
+    private float bottomBound;
+
+    private GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        player = GameObject.FindWithTag("player");
+
+        Camera cam = Camera.main;
+        Vector3 screenLeft = cam.ViewportToWorldPoint(new Vector3(0, 0, cam.transform.position.z));
+        Vector3 screenRight = cam.ViewportToWorldPoint(new Vector3(1, 0, cam.transform.position.z));
+        Vector3 screenBottom = cam.ViewportToWorldPoint(new Vector3(0.5f, 0, cam.transform.position.z));
+
+
+        // Définir les limites gauche et droite
+        leftBound = screenLeft.x;
+        rightBound = screenRight.x;
+        bottomBound = screenBottom.y;
     }
 
     // Update is called once per frame
@@ -23,38 +40,15 @@ public class PlayerController : MonoBehaviour
         Vector2 movement = new Vector2(movementX, movementY);
         rb.AddForce(movement * speed);
 
-                /*
-
-        foreach (GameObject go in GameObject.FindGameObjectsWithTag("jumperPlatform"))
+        if (player.transform.position.x < leftBound)
         {
-            if (rb.transform.position.y > go.transform.position.y)
-            {
-                Rigidbody2D goRb = go.GetComponent<Rigidbody2D>();
-                if (goRb != null)
-                {
-                    goRb.simulated = true;
-                }
-
-            }
-
-            
+            player.transform.position = new Vector3(rightBound, player.transform.position.y, player.transform.position.z);
         }
 
-        foreach (GameObject go in GameObject.FindGameObjectsWithTag("normalPlatform"))
+        else if (player.transform.position.x > rightBound)
         {
-            if (rb.transform.position.y > go.transform.position.y)
-            {
-                Rigidbody2D goRb = go.GetComponent<Rigidbody2D>();
-                if (goRb != null)
-                {
-                    goRb.simulated = false;
-                }
-
-            }
-
-            
-        }*/
-
+            player.transform.position = new Vector3(leftBound, player.transform.position.y, player.transform.position.z);
+        }
 
     }
 
