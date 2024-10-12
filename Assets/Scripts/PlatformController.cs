@@ -21,7 +21,7 @@ public class PlatformController : MonoBehaviour
     public Sprite[] breakingSprites; // Tableau pour stocker les sprites
     private float breaking_time = 0.0f;
     public bool is_desotrying = false;
-
+    private Camera cam;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +34,7 @@ public class PlatformController : MonoBehaviour
         go_tag = gameObject.tag;
         
         // Pour gérer les déplacements des plateformes mobiles, et leur destruction lorsque non visible en bas
-        Camera cam = Camera.main;
+        cam = Camera.main;
         Vector3 screenLeft = cam.ViewportToWorldPoint(new Vector3(0, 0, cam.transform.position.z));
         Vector3 screenRight = cam.ViewportToWorldPoint(new Vector3(1, 0, cam.transform.position.z));
         Vector3 screenBottom = cam.ViewportToWorldPoint(new Vector3(0.5f, 0, cam.transform.position.z));
@@ -51,14 +51,13 @@ public class PlatformController : MonoBehaviour
         // Pour faire sauter le joueur s'il atterit sur une plateforme autre qu'une "breaking_platform"
         if (go_tag == "normalPlatform" || go_tag == "movingPlatform")
         {
-            impulseForce = 5.0f;
+            impulseForce = 7.0f;
         }
 
 
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         // Gestion du mouvement de la plateforme
         if (go_tag == "movingPlatform")
@@ -77,6 +76,16 @@ public class PlatformController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Vector3 screenBottom = cam.ViewportToWorldPoint(new Vector3(0.5f, 0, cam.transform.position.z));
+        bottomBound = screenBottom.y;
+
+        
+
     }
 
     private void MovePlatform()
