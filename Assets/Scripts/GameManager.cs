@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
  public enum GAMESTATE{ menu, play, paused ,  gameOver }
 public class GameManager : MonoBehaviour
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     private GAMESTATE gamestate = GAMESTATE.menu;
     //UI references
     public GameObject startMenu;
+    public GameObject gameOverMenu;
 
     //
 
@@ -38,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     private void displayGameOver()
     {
-        throw new NotImplementedException();
+        gameOverMenu.SetActive(true);
     }
 
     private void playBehaviour()
@@ -49,7 +51,8 @@ public class GameManager : MonoBehaviour
 
     private void displayMenu()
     {
-        throw new NotImplementedException();
+        startMenu.SetActive(true);
+        gameOverMenu.SetActive(false);
     }
 
     public GAMESTATE getGameState()
@@ -70,5 +73,11 @@ public class GameManager : MonoBehaviour
     public void gameOver()
     {
         gamestate = GAMESTATE.gameOver;
+    }
+
+    public void backToMenu()
+    {
+        gamestate = GAMESTATE.menu;
+        SceneManager.LoadScene(0);
     }
 }

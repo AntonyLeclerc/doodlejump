@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         //offset = this.transform.position - player.transform.position;
-        offset = new Vector3(0, 0, -1);
+        //offset = new Vector3(0, 0, -1);
     }
 
     // Update is called once per frame
@@ -24,10 +24,10 @@ public class CameraController : MonoBehaviour
     private void LateUpdate()
     {
         //transform.position = player.transform.position + offset;
-        
-        if (player.transform.position.y > this.transform.position.y)
+        Vector3 pos = player.transform.position;
+        if (pos.y > this.transform.position.y)
         {
-            transform.position = player.transform.position+offset ;
+            transform.position = new Vector3(transform.position.x, player.transform.position.y, -1);
         }
     }
 }

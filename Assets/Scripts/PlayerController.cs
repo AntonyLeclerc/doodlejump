@@ -43,19 +43,29 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
+    }
+    void FixedUpdate()
+    {
         Vector2 movement = new Vector2(movementX, movementY);
         rb.AddForce(movement * speed);
-
-        if (player.transform.position.x < leftBound)
+        Vector3 pos = player.transform.position;
+        // Torus map
+        if (pos.x < leftBound)
         {
             player.transform.position = new Vector3(rightBound, player.transform.position.y, player.transform.position.z);
         }
-
-        else if (player.transform.position.x > rightBound)
+        else if (pos.x > rightBound)
         {
             player.transform.position = new Vector3(leftBound, player.transform.position.y, player.transform.position.z);
         }
-
+        //Check GameOver
+        if(pos.y < bottomBound)
+        {
+            gameManager.gameOver();
+            gs = gameManager.getGameState();
+        }
     }
 
     void OnMove(InputValue movementValue)
@@ -63,9 +73,5 @@ public class PlayerController : MonoBehaviour
         Vector2 movementVector = movementValue.Get<Vector2>();
         movementX = movementVector.x;
         movementY = movementVector.y;
-    }
-    private void FixedUpdate()
-    {
-        
     }
 }
