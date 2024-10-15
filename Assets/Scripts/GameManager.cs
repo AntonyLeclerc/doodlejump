@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
- public enum GAMESTATE{ menu, play, paused ,  gameOver }
+ public enum GAMESTATE{ menu, play, paused,  gameOver }
 public class GameManager : MonoBehaviour
 {
     private GAMESTATE gamestate = GAMESTATE.menu;
+
     //UI references
     public GameObject startMenu;
     public GameObject gameOverMenu;
@@ -17,7 +18,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -31,11 +31,19 @@ public class GameManager : MonoBehaviour
             case GAMESTATE.play:
                 playBehaviour();
                 break;
+            case GAMESTATE.paused:
+                displayPauseMenu();
+                break;
             case GAMESTATE.gameOver:
                 displayGameOver();
                 break;
         }
         
+    }
+    //Display Menus functions
+    private void displayPauseMenu()
+    {
+        throw new NotImplementedException();
     }
 
     private void displayGameOver()
@@ -45,8 +53,8 @@ public class GameManager : MonoBehaviour
 
     private void playBehaviour()
     {
-        // Générer les plateformes ici 
-        throw new NotImplementedException();
+        //nbplateform = plateformCreator.getNbplateform();
+        //if(nbplateform >)
     }
 
     private void displayMenu()

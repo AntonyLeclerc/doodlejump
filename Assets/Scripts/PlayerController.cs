@@ -43,28 +43,38 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
 
     }
     void FixedUpdate()
     {
-        Vector2 movement = new Vector2(movementX, movementY);
-        rb.AddForce(movement * speed);
-        Vector3 pos = player.transform.position;
-        // Torus map
-        if (pos.x < leftBound)
+        
+        gs = gameManager.getGameState();
+        if ((gs == GAMESTATE.paused) || (gs == GAMESTATE.menu))
         {
-            player.transform.position = new Vector3(rightBound, player.transform.position.y, player.transform.position.z);
+            rb.bodyType = RigidbodyType2D.Kinematic;
         }
-        else if (pos.x > rightBound)
+        
+        if (gs == GAMESTATE.play)
         {
-            player.transform.position = new Vector3(leftBound, player.transform.position.y, player.transform.position.z);
-        }
-        //Check GameOver
-        if(pos.y < bottomBound)
-        {
-            gameManager.gameOver();
-            gs = gameManager.getGameState();
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            Vector2 movement = new Vector2(movementX, movementY);
+            rb.AddForce(movement * speed);
+            Vector3 pos = player.transform.position;
+            // Torus map
+            if (pos.x < leftBound)
+            {
+                player.transform.position = new Vector3(rightBound, player.transform.position.y, player.transform.position.z);
+            }
+            else if (pos.x > rightBound)
+            {
+                player.transform.position = new Vector3(leftBound, player.transform.position.y, player.transform.position.z);
+            }
+            //Check GameOver
+            if(pos.y < bottomBound)
+            {
+                gameManager.gameOver();
+                gs = gameManager.getGameState();
+            }
         }
     }
 
