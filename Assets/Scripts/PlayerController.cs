@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour
     private float bottomBound;
 
     private GameObject player;
+    // add game states
+    [SerializeField]
+    private GameManager gameManager;
+    private GAMESTATE gs;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +36,8 @@ public class PlayerController : MonoBehaviour
         leftBound = screenLeft.x;
         rightBound = screenRight.x;
         bottomBound = screenBottom.y;
+        // 
+        gs = gameManager.getGameState();
     }
 
     // Update is called once per frame
