@@ -25,7 +25,7 @@ public class PlateformManager : MonoBehaviour
     public float breakingProba=0.2f;
     public float normalProba;
     private float[] probs;
-    private float amplitude=0.3f;
+    private float amplitude=0.8f;
     // Determine when you should start cleaning
     public int plateformThreshold= 5;
     // Start is called before the first frame update
