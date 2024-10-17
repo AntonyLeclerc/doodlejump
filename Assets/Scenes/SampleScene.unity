@@ -577,11 +577,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
---- !u!1 &605150688 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2537095142620385276, guid: 34219fbc55c76df4297a34c4b49835a5, type: 3}
-  m_PrefabInstance: {fileID: 4846206885160909128}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &611606672
 GameObject:
   m_ObjectHideFlags: 0
@@ -1635,11 +1630,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3aa1141b859c29d4a87a71fe765a4f5a, type: 3}
---- !u!1 &963367376 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3922471844733657220, guid: b0cabbe56fae56e41adc5913d92c07fb, type: 3}
-  m_PrefabInstance: {fileID: 6760988719503223569}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &967998846
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1751,11 +1741,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1550691154}
-  normalPlateformPrefab: {fileID: 605150688}
-  movingPlateformPrefab: {fileID: 1210927285}
-  breakingPlateformPrefab: {fileID: 963367376}
+  normalPlateformPrefab: {fileID: 2537095142620385276, guid: 34219fbc55c76df4297a34c4b49835a5, type: 3}
+  movingPlateformPrefab: {fileID: 749570492718841717, guid: 015dc4da9a53efe4f9e9c8b59e58f689, type: 3}
+  breakingPlateformPrefab: {fileID: 3922471844733657220, guid: b0cabbe56fae56e41adc5913d92c07fb, type: 3}
   movingProba: 0.3
-  breakingProba: 0.2
+  breakingProba: 0.1
   normalProba: 0
   plateformThreshold: 6
 --- !u!4 &1023711765 stripped
@@ -2368,7 +2358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50926794d76cc874993d90688d8c49c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 14
   gameManager: {fileID: 1550691154}
 --- !u!114 &1119690086
 MonoBehaviour:
@@ -2611,11 +2601,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1210927285 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 749570492718841717, guid: 015dc4da9a53efe4f9e9c8b59e58f689, type: 3}
-  m_PrefabInstance: {fileID: 4268323582067825489}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1446095902 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3743379215412096612, guid: 3aa1141b859c29d4a87a71fe765a4f5a, type: 3}
@@ -2872,10 +2857,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 296381413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 328, y: 584}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50.429, y: -50}
+  m_SizeDelta: {x: 246.06, y: 434.1116}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1788992537
 MonoBehaviour:
@@ -2956,7 +2941,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 7.4, y: 108.8}
+  m_AnchoredPosition: {x: 20, y: 46}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1892166091

@@ -51,7 +51,7 @@ public class PlatformController : MonoBehaviour
         // Pour faire sauter le joueur s'il atterit sur une plateforme autre qu'une "breaking_platform"
         if (go_tag == "normalPlatform" || go_tag == "movingPlatform")
         {
-            impulseForce = 7.0f;
+            impulseForce = 9.0f;
         }
 
 
@@ -129,7 +129,20 @@ public class PlatformController : MonoBehaviour
         // Fais sauter le joueur si la plateforme n'est pas une "breaking_platform"   
         if (go_tag != "breakingPlatform")
         {
-            if (collision.gameObject.GetComponent<Rigidbody2D>().velocity.y < 10)
+            
+            if (collision.gameObject.GetComponent<Rigidbody2D>().velocity.y <= 0)
+            {
+                rbplayer.AddForce(Vector2.up * impulseForce, ForceMode2D.Impulse); // Appliquer une force vers le haut pour sauter
+            }
+        }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        // Fais sauter le joueur si la plateforme n'est pas une "breaking_platform"   
+        if (go_tag != "breakingPlatform")
+        {
+
+            if (collision.gameObject.GetComponent<Rigidbody2D>().velocity.y <= 0)
             {
                 rbplayer.AddForce(Vector2.up * impulseForce, ForceMode2D.Impulse); // Appliquer une force vers le haut pour sauter
             }

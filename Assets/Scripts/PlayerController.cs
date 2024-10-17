@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log(" Velocit " + rb.gameObject.GetComponent<Rigidbody2D>().velocity);
     }
     void FixedUpdate()
     {
