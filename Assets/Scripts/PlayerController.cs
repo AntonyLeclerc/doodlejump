@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,12 +12,13 @@ public class PlayerController : MonoBehaviour
     private float movementY;
     public float speed = 3.0f;
 
+    public TextMeshProUGUI scoreText;
     private float leftBound;    // Limite gauche de l'écran (plateforme bleue)
     private float rightBound;   // Limite droite de l'écran (plateforme bleue)
 
     private Vector3 screenBottom;
     private float bottomBound;
-
+    private float currentScore;
     private GameObject player;
     // add game states
     [SerializeField]
@@ -50,7 +53,7 @@ public class PlayerController : MonoBehaviour
         Camera cam = Camera.main;
         Vector3 screenBottom = cam.ViewportToWorldPoint(new Vector3(0.5f, 0, cam.transform.position.z));
         bottomBound = screenBottom.y;
-        Debug.Log(bottomBound);
+        // Debug.Log(bottomBound); // Check Y minimale pour mourir
 
 
     }
@@ -69,6 +72,9 @@ public class PlayerController : MonoBehaviour
             Vector2 movement = new Vector2(movementX, movementY);
             rb.AddForce(movement * speed);
             Vector3 pos = player.transform.position;
+            currentScore = Math.Max(pos.y, currentScore);
+            scoreText.text = "Current score : " + ((int)(10 * currentScore)).ToString();
+
             // Torus map
             if (pos.x < leftBound)
             {
