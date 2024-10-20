@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     private float leftBound;    // Limite gauche de l'écran (plateforme bleue)
     private float rightBound;   // Limite droite de l'écran (plateforme bleue)
+
+    private Vector3 screenBottom;
     private float bottomBound;
 
     private GameObject player;
@@ -43,7 +45,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(" Velocit " + rb.gameObject.GetComponent<Rigidbody2D>().velocity);
+        //Debug.Log(" Velocit " + rb.gameObject.GetComponent<Rigidbody2D>().velocity);
+
+        Camera cam = Camera.main;
+        Vector3 screenBottom = cam.ViewportToWorldPoint(new Vector3(0.5f, 0, cam.transform.position.z));
+        bottomBound = screenBottom.y;
+        Debug.Log(bottomBound);
+
+
     }
     void FixedUpdate()
     {
