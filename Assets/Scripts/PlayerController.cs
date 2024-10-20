@@ -61,8 +61,13 @@ public class PlayerController : MonoBehaviour
     {
         
         gs = gameManager.getGameState();
+        
+
         if ((gs == GAMESTATE.paused) || (gs == GAMESTATE.menu))
         {
+
+            Vector2 pausedVelocity = Vector2.zero;
+            rb.gameObject.GetComponent<Rigidbody2D>().velocity = pausedVelocity;
             rb.bodyType = RigidbodyType2D.Kinematic;
         }
         

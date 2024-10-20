@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject startMenu;
     public GameObject gameOverMenu;
 
+    private bool is_game_paused = false;
     //
 
     // Start is called before the first frame update
@@ -38,12 +39,15 @@ public class GameManager : MonoBehaviour
                 displayGameOver();
                 break;
         }
+
         
     }
     //Display Menus functions
     private void displayPauseMenu()
     {
-        throw new NotImplementedException();
+
+        Debug.Log("Game paused !");
+        //throw new NotImplementedException();
     }
 
     private void displayGameOver()
@@ -76,6 +80,27 @@ public class GameManager : MonoBehaviour
         Debug.Log("Starting the game");
         gamestate = GAMESTATE.play;
         startMenu.SetActive(false);
+
+    }
+
+    public void pauseGame()
+    {
+        if (!is_game_paused)
+        {
+            Debug.Log("Pausing the game");
+            gamestate = GAMESTATE.paused;
+            is_game_paused = !is_game_paused;
+            startMenu.SetActive(true);
+        }
+
+        else
+        {
+            Debug.Log("Unpausing the game");
+            gamestate = GAMESTATE.play;
+            is_game_paused = !is_game_paused;
+            startMenu.SetActive(false);
+
+        }
 
     }
     public void gameOver()
