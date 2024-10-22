@@ -22,6 +22,8 @@ public class PlatformController : MonoBehaviour
     private float breaking_time = 0.0f;
     public bool is_desotrying = false;
     private Camera cam;
+    private GameManager gameManager;
+    private GAMESTATE gs;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +49,7 @@ public class PlatformController : MonoBehaviour
         // Direction actuelle des plateformes mobiles
         direction = Vector2.right;
 
-        
+        this.gameManager = this.transform.parent.gameObject.GetComponent<PlateformManager>().getGameManagerPlateform();
         // Pour faire sauter le joueur s'il atterit sur une plateforme autre qu'une "breaking_platform"
         if (go_tag == "normalPlatform" || go_tag == "movingPlatform")
         {
@@ -59,6 +61,7 @@ public class PlatformController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        gs = gameManager.getGameState();
         // Gestion du mouvement de la plateforme
         float comp = player.transform.position.y - player.GetComponent<BoxCollider2D>().size.y / 2 - 0.0001f;
         if (go_tag != "breakingPlatform")
@@ -78,7 +81,8 @@ public class PlatformController : MonoBehaviour
         }
         if (go_tag == "movingPlatform")
         {
-            MovePlatform();
+            if(!(gs==GAMESTATE.paused))
+                MovePlatform();
         }
 
         // Gestion du changement de sprite de la plateforme brisée

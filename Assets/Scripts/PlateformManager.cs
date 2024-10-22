@@ -140,4 +140,8 @@ public class PlateformManager : MonoBehaviour
     {
         return nbplateform;
     }
+    public GameManager getGameManagerPlateform()
+    {
+        return gameManager;
+    }
 }

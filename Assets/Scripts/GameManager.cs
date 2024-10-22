@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
     //UI references
     public GameObject startMenu;
     public GameObject gameOverMenu;
-
+    public GameObject playMenu;
+    public GameObject pauseMenu;
     private bool is_game_paused = false;
     //
 
@@ -55,23 +56,30 @@ public class GameManager : MonoBehaviour
     {
 
         Debug.Log("Game paused !");
+        pauseMenu.SetActive(true);
         //throw new NotImplementedException();
     }
 
     private void displayGameOver()
     {
         gameOverMenu.SetActive(true);
+        playMenu.SetActive(false);
+        pauseMenu.SetActive(false);
     }
 
     private void playBehaviour()
     {
         //nbplateform = plateformCreator.getNbplateform();
         //if(nbplateform >)
+        playMenu.SetActive(true);
+        pauseMenu.SetActive(false);
     }
 
     private void displayMenu()
     {
         startMenu.SetActive(true);
+        playMenu.SetActive(false);
+        pauseMenu.SetActive(false);
         gameOverMenu.SetActive(false);
     }
 
@@ -98,7 +106,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Pausing the game");
             gamestate = GAMESTATE.paused;
             is_game_paused = !is_game_paused;
-            startMenu.SetActive(true);
+            //startMenu.SetActive(true);
         }
 
         else
@@ -106,7 +114,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Unpausing the game");
             gamestate = GAMESTATE.play;
             is_game_paused = !is_game_paused;
-            startMenu.SetActive(false);
+            //startMenu.SetActive(false);
 
         }
 
@@ -128,6 +136,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("gameValuePrev", (int)gamestate);
         SceneManager.LoadScene(0);
     }
+   
     private void OnApplicationQuit()
     {
         PlayerPrefs.DeleteKey("gameValuePrev");
