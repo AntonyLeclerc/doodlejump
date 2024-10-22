@@ -53,6 +53,10 @@ PrefabInstance:
       value: moving_plat_prefab Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6647392236389316943, guid: e47f5367e9343d740bd61b118c757528, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647392236389316943, guid: e47f5367e9343d740bd61b118c757528, type: 3}
       propertyPath: m_UsedByEffector
       value: 1
       objectReference: {fileID: 0}

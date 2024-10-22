@@ -15,7 +15,7 @@ public class PlatformController : MonoBehaviour
     private float rightBound;   // Limite droite de l'écran (plateforme bleue)
     private float bottomBound;   // Limite en bas de l'écran, pour détruire les plateformes une fois qu'elles ne seront plus visibles
     private Vector2 direction;  // Direction du mouvement
-
+    public bool withDEBUG = false;
     // Pour les plateformes qui se cassent
     public SpriteRenderer spriteRenderer;
     public Sprite[] breakingSprites; // Tableau pour stocker les sprites
@@ -60,6 +60,22 @@ public class PlatformController : MonoBehaviour
     private void FixedUpdate()
     {
         // Gestion du mouvement de la plateforme
+        float comp = player.transform.position.y - player.GetComponent<BoxCollider2D>().size.y / 2 - 0.0001f;
+        if (go_tag != "breakingPlatform")
+        {
+            if (withDEBUG)
+            {
+                Debug.Log("plateform " + this.transform.position.y + " p :" + comp);
+            }
+            if (this.transform.position.y > comp)
+            {
+                this.GetComponent<EdgeCollider2D>().enabled = false;
+            }
+            else
+            {
+                this.GetComponent<EdgeCollider2D>().enabled = true;
+            }
+        }
         if (go_tag == "movingPlatform")
         {
             MovePlatform();
@@ -84,7 +100,7 @@ public class PlatformController : MonoBehaviour
         Vector3 screenBottom = cam.ViewportToWorldPoint(new Vector3(0.5f, 0, cam.transform.position.z));
         bottomBound = screenBottom.y;
 
-        
+       
 
     }
 
