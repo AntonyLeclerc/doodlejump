@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+//                       0      1      2        3
  public enum GAMESTATE{ menu, play, paused,  gameOver }
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +19,14 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (PlayerPrefs.HasKey("gameValuePrev"))
+        {
+            gamestate = (GAMESTATE)PlayerPrefs.GetInt("gameValuePrev");
+            if (gamestate == GAMESTATE.play)
+            {
+                startGame();
+            }
+        }
     }
 
     // Update is called once per frame
@@ -111,6 +119,17 @@ public class GameManager : MonoBehaviour
     public void backToMenu()
     {
         gamestate = GAMESTATE.menu;
+        PlayerPrefs.SetInt("gameValuePrev", (int)gamestate);
         SceneManager.LoadScene(0);
+    }
+    public void replayGame()
+    {
+        gamestate = GAMESTATE.play;
+        PlayerPrefs.SetInt("gameValuePrev", (int)gamestate);
+        SceneManager.LoadScene(0);
+    }
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.DeleteKey("gameValuePrev");
     }
 }
