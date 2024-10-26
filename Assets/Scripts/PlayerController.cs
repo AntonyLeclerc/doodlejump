@@ -13,12 +13,13 @@ public class PlayerController : MonoBehaviour
     public float speed = 3.0f;
 
     public TextMeshProUGUI scoreText;
+
     private float leftBound;    // Limite gauche de l'écran (plateforme bleue)
     private float rightBound;   // Limite droite de l'écran (plateforme bleue)
 
     private Vector3 screenBottom;
     private float bottomBound;
-    private float currentScore;
+    public float currentScore;
     private GameObject player;
     // add game states
     [SerializeField]
@@ -96,6 +97,11 @@ public class PlayerController : MonoBehaviour
                 gs = gameManager.getGameState();
             }
         }
+
+        if (gs == GAMESTATE.gameOver)
+        {
+
+        }
     }
 
     void OnMove(InputValue movementValue)
@@ -103,5 +109,10 @@ public class PlayerController : MonoBehaviour
         Vector2 movementVector = movementValue.Get<Vector2>();
         movementX = movementVector.x;
         movementY = movementVector.y;
+    }
+
+    public float getCurrentScore()
+    {
+        return currentScore;
     }
 }

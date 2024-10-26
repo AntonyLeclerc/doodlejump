@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.SceneManagement;
+
 //                       0      1      2        3
  public enum GAMESTATE{ menu, play, paused,  gameOver }
 public class GameManager : MonoBehaviour
@@ -14,12 +16,19 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverMenu;
     public GameObject playMenu;
     public GameObject pauseMenu;
+
+    public GameObject player;
+    public TextMeshProUGUI gameOverScoreText;
+
     private bool is_game_paused = false;
+    private float finalScore;
     //
 
     // Start is called before the first frame update
     void Start()
     {
+
+        
         if (PlayerPrefs.HasKey("gameValuePrev"))
         {
             gamestate = (GAMESTATE)PlayerPrefs.GetInt("gameValuePrev");
@@ -122,6 +131,10 @@ public class GameManager : MonoBehaviour
     public void gameOver()
     {
         gamestate = GAMESTATE.gameOver;
+        
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        finalScore = playerController.getCurrentScore();
+        gameOverScoreText.text = "your score : " + ((int)(10 * finalScore)).ToString();
     }
 
     public void backToMenu()

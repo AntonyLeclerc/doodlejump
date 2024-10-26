@@ -2443,6 +2443,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 14
   scoreText: {fileID: 1371311554}
+  currentScore: 0
   gameManager: {fileID: 1550691154}
 --- !u!114 &1119690086
 MonoBehaviour:
@@ -3104,6 +3105,8 @@ MonoBehaviour:
   gameOverMenu: {fileID: 747374295}
   playMenu: {fileID: 678085732}
   pauseMenu: {fileID: 632601228}
+  player: {fileID: 1119690080}
+  gameOverScoreText: {fileID: 1048931231}
 --- !u!4 &1550691155
 Transform:
   m_ObjectHideFlags: 0
