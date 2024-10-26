@@ -105,10 +105,10 @@ public class PlateformManager : MonoBehaviour
         
             GameObject go = Instantiate(prefabsList[choice],spawnPos,Quaternion.identity,this.transform);
         }
-        else
+        /*else
         {
             Debug.Log("Too much plateforms " + nbplateform);
-        }
+        }*/
 
     }
     int Choose(float[] probs)

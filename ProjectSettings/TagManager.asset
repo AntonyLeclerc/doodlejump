@@ -9,6 +9,7 @@ TagManager:
   - player
   - movingPlatform
   - breakingPlatform
+  - blackHolePlatform
   layers:
   - Default
   - TransparentFX
