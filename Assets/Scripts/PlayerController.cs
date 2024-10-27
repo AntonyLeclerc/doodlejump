@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(movement * speed);
             Vector3 pos = player.transform.position;
             currentScore = Math.Max(pos.y, currentScore);
-            scoreText.text = "Current score : " + ((int)(10 * currentScore)).ToString();
+            scoreText.text = "Current score : " + ((int)(20 * currentScore)).ToString();
 
             // Torus map
             if (pos.x < leftBound)

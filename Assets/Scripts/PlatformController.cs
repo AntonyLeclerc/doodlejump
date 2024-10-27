@@ -66,10 +66,10 @@ public class PlatformController : MonoBehaviour
         float comp = player.transform.position.y - player.GetComponent<BoxCollider2D>().size.y / 2 - 0.0001f;
         if (go_tag != "breakingPlatform")
         {
-            if (withDEBUG)
+            /*if (withDEBUG)
             {
                 Debug.Log("plateform " + this.transform.position.y + " p :" + comp);
-            }
+            }*/
             if (this.transform.position.y > comp)
             {
                 this.GetComponent<EdgeCollider2D>().enabled = false;
