@@ -12,6 +12,14 @@ public class PlayerController : MonoBehaviour
     private float movementY;
     public float speed = 3.0f;
 
+    public Sprite[] playerSprites; // Tableau pour stocker les sprites
+    public SpriteRenderer playerRenderer;
+    private int currentSprite = 0;
+    // playerSprites[0] : Sprite normal
+    // playerSprites[1] : Sprite shoot
+    // playerSprites[2] : Sprite jambes pliees
+
+
     public TextMeshProUGUI scoreText;
 
     private float leftBound;    // Limite gauche de l'écran (plateforme bleue)
@@ -114,5 +122,15 @@ public class PlayerController : MonoBehaviour
     public float getCurrentScore()
     {
         return currentScore;
+    }
+
+    public void setNewSprite(int index)
+    {
+        playerRenderer.sprite = playerSprites[index];
+    }
+
+    public int getCurrentSprite()
+    {
+        return currentSprite;
     }
 }
