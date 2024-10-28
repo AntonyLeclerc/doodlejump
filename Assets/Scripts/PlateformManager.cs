@@ -27,7 +27,7 @@ public class PlateformManager : MonoBehaviour
     private float[] probs;
     private float amplitude=0.8f;
     // Determine when you should start cleaning
-    public int plateformThreshold= 5;
+    public int plateformThreshold= 50;
     // Start is called before the first frame update
     void Start()
     {
@@ -98,7 +98,7 @@ public class PlateformManager : MonoBehaviour
             Vector3 screenCenter = new Vector3(Screen.width/2, Screen.height/2, 0);
             Vector3 center = Camera.main.ScreenToWorldPoint(screenCenter);
             float spawnX = UnityEngine.Random.Range(topLeft.x, topRight.x);
-            float spawnY = UnityEngine.Random.Range(center.y, topLeft.y+ amplitude);
+            float spawnY = UnityEngine.Random.Range(center.y, center.y+ amplitude);
             Vector3 spawnPos = new Vector3(spawnX, spawnY, 0);
 
             int choice = Choose(probs);
