@@ -104,6 +104,7 @@ public class PlateformManager : MonoBehaviour
             {
                 spawnX = UnityEngine.Random.Range(topLeft.x, topRight.x);
                 spawnY = UnityEngine.Random.Range(center.y , topLeft.y + amplitude2);
+                Debug.Log("Retry");
             }
             
             Vector3 spawnPos = new Vector3(spawnX, spawnY, 0);
@@ -121,21 +122,18 @@ public class PlateformManager : MonoBehaviour
 
     private bool checkValidity(float spawnX, float spawnY)
     {
-        Vector3 pos = new Vector3(spawnX, spawnY,0);
-        //Ray construction
-        Ray up = new Ray(pos,pos+Vector3.up);
-        Ray down = new Ray(pos, pos+Vector3.down);
-        Ray right = new Ray(pos, pos + Vector3.right);
-        Ray left = new Ray(pos, pos + Vector3.left);
-        Ray TopL = new Ray(pos, pos + Vector3.up+ Vector3.left);
-        Ray TopR = new Ray(pos, pos + Vector3.up+ Vector3.right);
-        Ray DownL = new Ray(pos, pos + Vector3.down+ Vector3.left);
-        Ray DownR = new Ray(pos, pos + Vector3.down+ Vector3.right);
+        Vector2 pos = new Vector2(spawnX, spawnY);
         // Check distance
-        float dist = 1f;
-        Debug.DrawLine(pos,pos+Vector3.up);
-        if ((Physics.Raycast(up,dist))||(Physics.Raycast(up, dist)) || (Physics.Raycast(up, dist)) || (Physics.Raycast(up, dist))
-            || (Physics.Raycast(up, dist)) || (Physics.Raycast(up, dist)) || (Physics.Raycast(up, dist)) || (Physics.Raycast(up, dist)))
+        float dist = 5f;
+        Debug.DrawLine(pos,pos+(Vector2.up)* dist);
+        Debug.DrawLine(pos, pos + (Vector2.right)*dist);
+        Debug.DrawLine(pos, pos + (Vector2.left)*dist);
+        Debug.DrawLine(pos, pos + (Vector2.down) * dist,Color.red);
+        Debug.DrawLine(pos, pos  + (Vector2.down + Vector2.left)*dist);
+        Debug.DrawLine(pos, pos + (Vector2.down + Vector2.right) * dist);
+        Debug.DrawLine(pos,  pos + (Vector2.up + Vector2.left) * dist);
+        if ((Physics2D.Raycast(pos, pos + (Vector2.up), dist))||(Physics2D.Raycast(pos, pos + Vector2.down, dist)) || (Physics2D.Raycast(pos, pos + Vector2.right, dist)) || (Physics2D.Raycast(pos, pos + Vector2.left, dist))
+            || (Physics2D.Raycast(pos, pos + Vector2.up + Vector2.left, dist)) || (Physics2D.Raycast(pos, pos + Vector2.up + Vector2.right, dist)) || (Physics2D.Raycast(pos, pos + Vector2.down + Vector2.left, dist)) || (Physics2D.Raycast(pos, pos + Vector2.down + Vector2.right, dist)))
         {
             return false;
         }
