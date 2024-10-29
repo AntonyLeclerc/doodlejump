@@ -122,20 +122,16 @@ public class PlateformManager : MonoBehaviour
 
     private bool checkValidity(float spawnX, float spawnY)
     {
-        Vector2 pos = new Vector2(spawnX, spawnY);
+        Debug.Log("check");
+        Vector3 pos = new Vector3(spawnX, spawnY,0);
         // Check distance
-        float dist = 5f;
-        Debug.DrawLine(pos,pos+(Vector2.up)* dist);
-        Debug.DrawLine(pos, pos + (Vector2.right)*dist);
-        Debug.DrawLine(pos, pos + (Vector2.left)*dist);
-        Debug.DrawLine(pos, pos + (Vector2.down) * dist,Color.red);
-        Debug.DrawLine(pos, pos  + (Vector2.down + Vector2.left)*dist);
-        Debug.DrawLine(pos, pos + (Vector2.down + Vector2.right) * dist);
-        Debug.DrawLine(pos,  pos + (Vector2.up + Vector2.left) * dist);
-        if ((Physics2D.Raycast(pos, pos + (Vector2.up), dist))||(Physics2D.Raycast(pos, pos + Vector2.down, dist)) || (Physics2D.Raycast(pos, pos + Vector2.right, dist)) || (Physics2D.Raycast(pos, pos + Vector2.left, dist))
-            || (Physics2D.Raycast(pos, pos + Vector2.up + Vector2.left, dist)) || (Physics2D.Raycast(pos, pos + Vector2.up + Vector2.right, dist)) || (Physics2D.Raycast(pos, pos + Vector2.down + Vector2.left, dist)) || (Physics2D.Raycast(pos, pos + Vector2.down + Vector2.right, dist)))
+        float dist = 1f;
+        foreach(Transform child in this.transform)
         {
-            return false;
+            if (Vector3.Distance(child.position, pos) < dist)
+            {
+                return false;
+            }
         }
         return true;
     }
