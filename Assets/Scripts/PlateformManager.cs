@@ -22,10 +22,11 @@ public class PlateformManager : MonoBehaviour
     private List<GameObject> prefabsList;
     // plateform spawn probabilities
     public float movingProba=0.3f;
-    public float breakingProba=0.2f;
+    public float breakingProba=0.1f;
     public float normalProba;
     private float[] probs;
-    private float amplitude=0.8f;
+    private float amplitude=0.2f;
+    private float amplitude2 = 0.4f;
     // Determine when you should start cleaning
     public int plateformThreshold= 50;
     // Start is called before the first frame update
@@ -98,7 +99,13 @@ public class PlateformManager : MonoBehaviour
             Vector3 screenCenter = new Vector3(Screen.width/2, Screen.height/2, 0);
             Vector3 center = Camera.main.ScreenToWorldPoint(screenCenter);
             float spawnX = UnityEngine.Random.Range(topLeft.x, topRight.x);
-            float spawnY = UnityEngine.Random.Range(center.y, center.y+ amplitude);
+            float spawnY = UnityEngine.Random.Range(center.y+amplitude, topLeft.y+ amplitude2);
+            while (!checkValidity(spawnX,spawnY))
+            {
+                spawnX = UnityEngine.Random.Range(topLeft.x, topRight.x);
+                spawnY = UnityEngine.Random.Range(center.y , topLeft.y + amplitude2);
+            }
+            
             Vector3 spawnPos = new Vector3(spawnX, spawnY, 0);
 
             int choice = Choose(probs);
@@ -111,6 +118,30 @@ public class PlateformManager : MonoBehaviour
         }*/
 
     }
+
+    private bool checkValidity(float spawnX, float spawnY)
+    {
+        Vector3 pos = new Vector3(spawnX, spawnY,0);
+        //Ray construction
+        Ray up = new Ray(pos,pos+Vector3.up);
+        Ray down = new Ray(pos, pos+Vector3.down);
+        Ray right = new Ray(pos, pos + Vector3.right);
+        Ray left = new Ray(pos, pos + Vector3.left);
+        Ray TopL = new Ray(pos, pos + Vector3.up+ Vector3.left);
+        Ray TopR = new Ray(pos, pos + Vector3.up+ Vector3.right);
+        Ray DownL = new Ray(pos, pos + Vector3.down+ Vector3.left);
+        Ray DownR = new Ray(pos, pos + Vector3.down+ Vector3.right);
+        // Check distance
+        float dist = 1f;
+        Debug.DrawLine(pos,pos+Vector3.up);
+        if ((Physics.Raycast(up,dist))||(Physics.Raycast(up, dist)) || (Physics.Raycast(up, dist)) || (Physics.Raycast(up, dist))
+            || (Physics.Raycast(up, dist)) || (Physics.Raycast(up, dist)) || (Physics.Raycast(up, dist)) || (Physics.Raycast(up, dist)))
+        {
+            return false;
+        }
+        return true;
+    }
+
     int Choose(float[] probs)
     {
 
