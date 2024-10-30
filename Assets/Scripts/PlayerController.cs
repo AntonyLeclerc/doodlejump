@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private float movementX;
     private float movementY;
     public float speed = 3.0f;
+    private float maxSpeed = 10.0f;
 
     public Sprite[] playerSprites; // Tableau pour stocker les sprites
     public SpriteRenderer playerRenderer;
@@ -21,8 +22,8 @@ public class PlayerController : MonoBehaviour
 
     public TextMeshProUGUI scoreText;
 
-    private float leftBound;    // Limite gauche de l'écran (plateforme bleue)
-    private float rightBound;   // Limite droite de l'écran (plateforme bleue)
+    private float leftBound;    // Limite gauche de l'ï¿½cran (plateforme bleue)
+    private float rightBound;   // Limite droite de l'ï¿½cran (plateforme bleue)
 
     private Vector3 screenBottom;
     private float bottomBound;
@@ -45,7 +46,7 @@ public class PlayerController : MonoBehaviour
         Vector3 screenBottom = cam.ViewportToWorldPoint(new Vector3(0.5f, 0, cam.transform.position.z));
 
 
-        // Définir les limites gauche et droite
+        // Dï¿½finir les limites gauche et droite
         leftBound = screenLeft.x;
         rightBound = screenRight.x;
         bottomBound = screenBottom.y;
@@ -84,6 +85,7 @@ public class PlayerController : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Dynamic;
             Vector2 movement = new Vector2(movementX, movementY);
             rb.AddForce(movement * speed);
+            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
             Vector3 pos = player.transform.position;
             currentScore = Math.Max(pos.y, currentScore);
             scoreText.text = "Current score : " + ((int)(20 * currentScore)).ToString();
