@@ -22,11 +22,12 @@ public class PlateformManager : MonoBehaviour
     private List<GameObject> prefabsList;
     // plateform spawn probabilities
     public float movingProba=0.3f;
-    public float breakingProba=0.1f;
+    public float breakingProba=0.2f;
     public float normalProba;
     private float[] probs;
-    private float amplitude=0.2f;
-    private float amplitude2 = 0.4f;
+    // private float amplitude=0.2f;
+    private float amplitude=0.3f;
+    // private float amplitude2 = 0.4f;
     // Determine when you should start cleaning
     public int plateformThreshold= 50;
     // Start is called before the first frame update
@@ -46,12 +47,15 @@ public class PlateformManager : MonoBehaviour
     {
         if (gs == GAMESTATE.play)
         {
+            /*
             if (nbplateform >= plateformThreshold)
             {
-                //cleanPlateforms();
+                // cleanPlateforms();
                 nbplateform = this.transform.childCount;
             }
+            */
             generatePlateforms();
+            cleanPlateforms();
             nbplateform = this.transform.childCount;
         }
     }
@@ -69,20 +73,16 @@ public class PlateformManager : MonoBehaviour
     // 
     private void cleanPlateforms()
     {
-        Debug.Log("Calling Clean");
+        // Debug.Log("Calling Clean");
         Vector3 bottomScreen = new Vector3(Screen.width / 2, 0, 0);
         Vector3 bottom = Camera.main.ScreenToWorldPoint(bottomScreen);
         for (int i=0; i < nbplateform; i++)
         {
-            Transform child = this.transform.GetChild(i);
+            GameObject child = this.transform.GetChild(i).gameObject;
             //
             if (child.transform.position.y < bottom.y)
             {
                 Destroy(child);
-            }
-            else
-            {
-                break;
             }
         }
     }
@@ -99,11 +99,13 @@ public class PlateformManager : MonoBehaviour
             Vector3 screenCenter = new Vector3(Screen.width/2, Screen.height/2, 0);
             Vector3 center = Camera.main.ScreenToWorldPoint(screenCenter);
             float spawnX = UnityEngine.Random.Range(topLeft.x, topRight.x);
-            float spawnY = UnityEngine.Random.Range(center.y+amplitude, topLeft.y+ amplitude2);
+            // float spawnY = UnityEngine.Random.Range(center.y+amplitude, topLeft.y+ amplitude2);
+            float spawnY = UnityEngine.Random.Range(topLeft.y-amplitude, topLeft.y+ amplitude);
             while (!checkValidity(spawnX,spawnY))
             {
                 spawnX = UnityEngine.Random.Range(topLeft.x, topRight.x);
-                spawnY = UnityEngine.Random.Range(center.y , topLeft.y + amplitude2);
+                // spawnY = UnityEngine.Random.Range(center.y , topLeft.y + amplitude2);
+                spawnY = UnityEngine.Random.Range(topLeft.y-amplitude, topLeft.y+ amplitude);
                 Debug.Log("Retry");
             }
             
@@ -112,6 +114,24 @@ public class PlateformManager : MonoBehaviour
             int choice = Choose(probs);
         
             GameObject go = Instantiate(prefabsList[choice],spawnPos,Quaternion.identity,this.transform);
+
+            // il faut au moins un platform différent de breakingPlatform qui peut être atteint
+            if (choice == 2){
+                Debug.Log("platform choiced : "+prefabsList[choice]);
+                float spawnX_norm = UnityEngine.Random.Range(topLeft.x, topRight.x);
+                // float spawnY = UnityEngine.Random.Range(center.y+amplitude, topLeft.y+ amplitude2);
+                float spawnY_norm = UnityEngine.Random.Range(spawnY-0.1f, spawnY+0.1f);
+                while (!checkValidity(spawnX_norm,spawnY_norm))
+                {
+                    spawnX_norm = UnityEngine.Random.Range(topLeft.x, topRight.x);
+                    // spawnY = UnityEngine.Random.Range(center.y , topLeft.y + amplitude2);
+                    spawnY_norm = UnityEngine.Random.Range(spawnY-0.1f, spawnY+0.1f);
+                    Debug.Log("Retry norm");
+                }
+                
+                Vector3 spawnPos_norm = new Vector3(spawnX_norm, spawnY_norm, 0);
+                GameObject go_norm = Instantiate(prefabsList[0],spawnPos_norm,Quaternion.identity,this.transform);
+            }
         }
         /*else
         {
@@ -125,9 +145,10 @@ public class PlateformManager : MonoBehaviour
         Debug.Log("check");
         Vector3 pos = new Vector3(spawnX, spawnY,0);
         // Check distance
-        float dist = 1f;
+        float dist = 1.0f;
         foreach(Transform child in this.transform)
         {
+            Debug.Log("dist = "+(child.position.y - pos.y));
             if (Vector3.Distance(child.position, pos) < dist)
             {
                 return false;
