@@ -11,9 +11,9 @@ public class PlatformController : MonoBehaviour
 
     private float speed = 2.0f;
     private float impulseForce;
-    private float leftBound;    // Limite gauche de l'écran (plateforme bleue)
-    private float rightBound;   // Limite droite de l'écran (plateforme bleue)
-    private float bottomBound;   // Limite en bas de l'écran, pour détruire les plateformes une fois qu'elles ne seront plus visibles
+    private float leftBound;    // Limite gauche de l'ï¿½cran (plateforme bleue)
+    private float rightBound;   // Limite droite de l'ï¿½cran (plateforme bleue)
+    private float bottomBound;   // Limite en bas de l'ï¿½cran, pour dï¿½truire les plateformes une fois qu'elles ne seront plus visibles
     private Vector2 direction;  // Direction du mouvement
     public bool withDEBUG = false;
     // Pour les plateformes qui se cassent
@@ -32,16 +32,16 @@ public class PlatformController : MonoBehaviour
         player = GameObject.FindWithTag("player");
         rbplayer = player.GetComponent<Rigidbody2D>();
         
-        // Récupère le tag de la plateforme
+        // Rï¿½cupï¿½re le tag de la plateforme
         go_tag = gameObject.tag;
         
-        // Pour gérer les déplacements des plateformes mobiles, et leur destruction lorsque non visible en bas
+        // Pour gï¿½rer les dï¿½placements des plateformes mobiles, et leur destruction lorsque non visible en bas
         cam = Camera.main;
         Vector3 screenLeft = cam.ViewportToWorldPoint(new Vector3(0, 0, cam.transform.position.z));
         Vector3 screenRight = cam.ViewportToWorldPoint(new Vector3(1, 0, cam.transform.position.z));
         Vector3 screenBottom = cam.ViewportToWorldPoint(new Vector3(0.5f, 0, cam.transform.position.z));
 
-        // Définir les limites gauche et droite
+        // Dï¿½finir les limites gauche et droite
         leftBound = screenLeft.x;
         rightBound = screenRight.x;
         bottomBound = screenBottom.y;
@@ -85,13 +85,13 @@ public class PlatformController : MonoBehaviour
                 MovePlatform();
         }
 
-        // Gestion du changement de sprite de la plateforme brisée
+        // Gestion du changement de sprite de la plateforme brisï¿½e
         if (go_tag == "breakingPlatform" && is_desotrying)
         {
             UpdateBreakingSprite();
         }
 
-        // Détruis une plateforme si cette dernière disparais (en bas) de l'écran
+        // Dï¿½truis une plateforme si cette derniï¿½re disparais (en bas) de l'ï¿½cran
         if (gameObject.transform.position.y < bottomBound)
         {
             Destroy(gameObject);
@@ -112,7 +112,7 @@ public class PlatformController : MonoBehaviour
     }
 
     private void MovePlatform()
-    // Sert pour les plateformes bleues (qui se déplacent de gauche à droite à gauche)
+    // Sert pour les plateformes bleues (qui se dï¿½placent de gauche ï¿½ droite ï¿½ gauche)
     {
 
 
@@ -133,14 +133,14 @@ public class PlatformController : MonoBehaviour
     {
         breaking_time += Time.deltaTime;
 
-        // Vérifier quel sprite doit être affiché en fonction du temps écoulé
-        int spriteIndex = Mathf.FloorToInt(breaking_time * 10); // Multiplier par 10 pour correspondre à l'index
+        // Vï¿½rifier quel sprite doit ï¿½tre affichï¿½ en fonction du temps ï¿½coulï¿½
+        int spriteIndex = Mathf.FloorToInt(breaking_time * 10); // Multiplier par 10 pour correspondre ï¿½ l'index
         if (spriteIndex < breakingSprites.Length)
         {
             spriteRenderer.sprite = breakingSprites[spriteIndex];
         }
 
-        // Détruire l'objet après un certain temps
+        // Dï¿½truire l'objet aprï¿½s un certain temps
         if (breaking_time >= breakingSprites.Length * 0.1f) // Temps total avant destruction
         {
             Destroy(gameObject);
@@ -181,9 +181,11 @@ public class PlatformController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        // Gérer les actions lorsque le joueur entre en collision avec la plateforme brisée
-        if (go_tag == "breakingPlatform")
+        // Gï¿½rer les actions lorsque le joueur entre en collision avec la plateforme brisï¿½e
+        float comp = player.transform.position.y - player.GetComponent<BoxCollider2D>().size.y / 2 - 0.0001f;
+        if (this.transform.position.y < comp)
         {
+            Debug.Log("plateform " + this.transform.position.y + " p :" + comp);
             is_desotrying = true; // Commencer le processus de destruction
         }
     }
@@ -191,7 +193,7 @@ public class PlatformController : MonoBehaviour
     private IEnumerator resetSpriteAfterDelay()
     {
         yield return new WaitForSeconds(1.0f);
-        Debug.Log("Dépliage de jambes");
+        Debug.Log("Dï¿½pliage de jambes");
 
         player.GetComponent<PlayerController>().setNewSprite(0);
     }
