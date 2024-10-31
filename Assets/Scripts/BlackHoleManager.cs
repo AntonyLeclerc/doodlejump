@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BlackHoleManager : MonoBehaviour
 {
-    public GameObject player;
+    [SerializeField]
+    private GameObject player;
     private Rigidbody2D rb;
     private GameManager gameManager;
 
@@ -16,6 +17,7 @@ public class BlackHoleManager : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.FindGameObjectsWithTag("player")[0];
         rb = player.GetComponent<Rigidbody2D>();
         gameManager = transform.parent.GetComponent<PlateformManager>().getGameManagerPlateform();
     }
@@ -26,17 +28,17 @@ public class BlackHoleManager : MonoBehaviour
         {
             passedTime += Time.deltaTime;
 
-            // Calcule la distance entre le joueur et le trou noir pour déclencher le gameover
+            // Calcule la distance entre le joueur et le trou noir pour dï¿½clencher le gameover
             float distanceToBlackHole = Vector3.Distance(player.transform.position, transform.position);
 
             
             if (distanceToBlackHole <= stoppingDistance)
             {
-                gameManager.gameOver(); // GameOver quand très proche du centre du trou noir
+                gameManager.gameOver(); // GameOver quand trï¿½s proche du centre du trou noir
             }
             else
             {
-                // Déplace le joueur vers le trou noir
+                // Dï¿½place le joueur vers le trou noir
                 player.transform.position = Vector3.MoveTowards(player.transform.position,
                                                                  transform.position,
                                                                  attractionSpeed * Time.deltaTime);
@@ -50,7 +52,7 @@ public class BlackHoleManager : MonoBehaviour
         {
             Debug.Log("Entered a black hole");
             isAttracting = true;
-            rb.velocity = Vector2.zero; // Met la vélocité du joueur à 0 pour ne pas "gêner" le début de l'attarction par le trou noir
+            rb.velocity = Vector2.zero; // Met la vï¿½locitï¿½ du joueur ï¿½ 0 pour ne pas "gï¿½ner" le dï¿½but de l'attarction par le trou noir
 
         }
     }

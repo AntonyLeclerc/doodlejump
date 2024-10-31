@@ -122,7 +122,8 @@ public class PlayerController : MonoBehaviour
 
     public float getCurrentScore()
     {
-        return currentScore;
+        // return currentScore;
+        return (int)(20 * currentScore);
     }
 
     public void setNewSprite(int index)

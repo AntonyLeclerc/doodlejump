@@ -185,7 +185,7 @@ public class PlatformController : MonoBehaviour
         float comp = player.transform.position.y - player.GetComponent<BoxCollider2D>().size.y / 2 - 0.0001f;
         if (this.transform.position.y < comp)
         {
-            Debug.Log("plateform " + this.transform.position.y + " p :" + comp);
+            // Debug.Log("plateform " + this.transform.position.y + " p :" + comp);
             is_desotrying = true; // Commencer le processus de destruction
         }
     }
