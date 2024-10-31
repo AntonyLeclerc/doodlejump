@@ -161,7 +161,7 @@ public class PlatformController : MonoBehaviour
 
                 // Debug.Log("Pliage de jambes");
                 player.GetComponent<PlayerController>().setNewSprite(2);
-
+                SoundManager.Instance.PlaySound(AudioType.Platform, AudioSourceType.Game);
                 StartCoroutine(resetSpriteAfterDelay());
 
             }
@@ -175,6 +175,8 @@ public class PlatformController : MonoBehaviour
             if (collision.gameObject.GetComponent<Rigidbody2D>().velocity.y <= 0)
             {
                 rbplayer.AddForce(Vector2.up * impulseForce, ForceMode2D.Impulse); // Appliquer une force vers le haut pour sauter
+                SoundManager.Instance.PlaySound(AudioType.Platform, AudioSourceType.Game);
+                StartCoroutine(resetSpriteAfterDelay());
             }
         }
     }
@@ -187,6 +189,7 @@ public class PlatformController : MonoBehaviour
         {
             // Debug.Log("plateform " + this.transform.position.y + " p :" + comp);
             is_desotrying = true; // Commencer le processus de destruction
+            SoundManager.Instance.PlaySound(AudioType.BreakingPlatform, AudioSourceType.Game);
         }
     }
 

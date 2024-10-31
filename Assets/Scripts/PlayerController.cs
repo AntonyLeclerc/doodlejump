@@ -63,8 +63,6 @@ public class PlayerController : MonoBehaviour
         Vector3 screenBottom = cam.ViewportToWorldPoint(new Vector3(0.5f, 0, cam.transform.position.z));
         bottomBound = screenBottom.y;
         // Debug.Log(bottomBound); // Check Y minimale pour mourir
-
-
     }
     void FixedUpdate()
     {
