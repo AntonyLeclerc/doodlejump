@@ -159,7 +159,7 @@ public class PlatformController : MonoBehaviour
 
                 rbplayer.AddForce(Vector2.up * impulseForce, ForceMode2D.Impulse); // Appliquer une force vers le haut pour sauter
 
-                Debug.Log("Pliage de jambes");
+                // Debug.Log("Pliage de jambes");
                 player.GetComponent<PlayerController>().setNewSprite(2);
 
                 StartCoroutine(resetSpriteAfterDelay());
@@ -193,7 +193,7 @@ public class PlatformController : MonoBehaviour
     private IEnumerator resetSpriteAfterDelay()
     {
         yield return new WaitForSeconds(1.0f);
-        Debug.Log("D�pliage de jambes");
+        // Debug.Log("D�pliage de jambes");
 
         player.GetComponent<PlayerController>().setNewSprite(0);
     }

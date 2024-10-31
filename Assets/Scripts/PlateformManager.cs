@@ -54,7 +54,7 @@ public class PlateformManager : MonoBehaviour
                 nbplateform = this.transform.childCount;
             }
             */
-            generatePlateforms();
+            //generatePlateforms();
             cleanPlateforms();
             nbplateform = this.transform.childCount;
         }
@@ -74,6 +74,7 @@ public class PlateformManager : MonoBehaviour
     private void cleanPlateforms()
     {
         // Debug.Log("Calling Clean");
+        nbplateform = this.transform.childCount;
         Vector3 bottomScreen = new Vector3(Screen.width / 2, 0, 0);
         Vector3 bottom = Camera.main.ScreenToWorldPoint(bottomScreen);
         for (int i=0; i < nbplateform; i++)
@@ -83,6 +84,7 @@ public class PlateformManager : MonoBehaviour
             if (child.transform.position.y < bottom.y)
             {
                 Destroy(child);
+                generatePlateforms();
             }
         }
     }
@@ -100,13 +102,13 @@ public class PlateformManager : MonoBehaviour
             Vector3 center = Camera.main.ScreenToWorldPoint(screenCenter);
             float spawnX = UnityEngine.Random.Range(topLeft.x, topRight.x);
             // float spawnY = UnityEngine.Random.Range(center.y+amplitude, topLeft.y+ amplitude2);
-            float spawnY = UnityEngine.Random.Range(topLeft.y-amplitude, topLeft.y+ amplitude);
+            float spawnY = topLeft.y + UnityEngine.Random.Range(0, 2.0f+ amplitude);
             while (!checkValidity(spawnX,spawnY))
             {
                 spawnX = UnityEngine.Random.Range(topLeft.x, topRight.x);
                 // spawnY = UnityEngine.Random.Range(center.y , topLeft.y + amplitude2);
-                spawnY = UnityEngine.Random.Range(topLeft.y-amplitude, topLeft.y+ amplitude);
-                Debug.Log("Retry");
+                spawnY = topLeft.y + UnityEngine.Random.Range(0, 2.0f+ amplitude);
+                // Debug.Log("Retry");
             }
             
             Vector3 spawnPos = new Vector3(spawnX, spawnY, 0);
@@ -117,7 +119,7 @@ public class PlateformManager : MonoBehaviour
 
             // il faut au moins un platform différent de breakingPlatform qui peut être atteint
             if (choice == 2){
-                Debug.Log("platform choiced : "+prefabsList[choice]);
+                // Debug.Log("platform choiced : "+prefabsList[choice]);
                 float spawnX_norm = UnityEngine.Random.Range(topLeft.x, topRight.x);
                 // float spawnY = UnityEngine.Random.Range(center.y+amplitude, topLeft.y+ amplitude2);
                 float spawnY_norm = UnityEngine.Random.Range(spawnY-0.1f, spawnY+0.1f);
@@ -126,7 +128,7 @@ public class PlateformManager : MonoBehaviour
                     spawnX_norm = UnityEngine.Random.Range(topLeft.x, topRight.x);
                     // spawnY = UnityEngine.Random.Range(center.y , topLeft.y + amplitude2);
                     spawnY_norm = UnityEngine.Random.Range(spawnY-0.1f, spawnY+0.1f);
-                    Debug.Log("Retry norm");
+                    // Debug.Log("Retry norm");
                 }
                 
                 Vector3 spawnPos_norm = new Vector3(spawnX_norm, spawnY_norm, 0);
@@ -142,13 +144,13 @@ public class PlateformManager : MonoBehaviour
 
     private bool checkValidity(float spawnX, float spawnY)
     {
-        Debug.Log("check");
+        // Debug.Log("check");
         Vector3 pos = new Vector3(spawnX, spawnY,0);
         // Check distance
         float dist = 1.0f;
         foreach(Transform child in this.transform)
         {
-            Debug.Log("dist = "+(child.position.y - pos.y));
+            // Debug.Log("dist = "+(child.position.y - pos.y));
             if (Vector3.Distance(child.position, pos) < dist)
             {
                 return false;
