@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
     private float bottomBound;
     public float currentScore;
     private GameObject player;
+    [SerializeField]
+    private InputActionReference shoot;
     // add game states
     [SerializeField]
     private GameManager gameManager;
@@ -63,6 +65,11 @@ public class PlayerController : MonoBehaviour
         Vector3 screenBottom = cam.ViewportToWorldPoint(new Vector3(0.5f, 0, cam.transform.position.z));
         bottomBound = screenBottom.y;
         // Debug.Log(bottomBound); // Check Y minimale pour mourir
+        if (shoot.action.triggered){
+            setNewSprite(1);
+            SoundManager.Instance.PlaySound(AudioType.Shooting, AudioSourceType.Player);
+            StartCoroutine(resetSpriteAfterDelay(0.1f));
+        }
     }
     void FixedUpdate()
     {
@@ -102,6 +109,7 @@ public class PlayerController : MonoBehaviour
             {
                 gameManager.gameOver();
                 gs = gameManager.getGameState();
+                SoundManager.Instance.PlaySound(AudioType.Fall, AudioSourceType.Player);
             }
         }
 
@@ -127,5 +135,13 @@ public class PlayerController : MonoBehaviour
     public void setNewSprite(int index)
     {
         playerRenderer.sprite = playerSprites[index];
+    }
+
+    private IEnumerator resetSpriteAfterDelay(float value)
+    {
+        yield return new WaitForSeconds(value);
+        // Debug.Log("D�pliage de jambes");
+
+        setNewSprite(0);
     }
 }

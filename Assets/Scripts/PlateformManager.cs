@@ -36,7 +36,7 @@ public class PlateformManager : MonoBehaviour
     // private float amplitude2 = 0.4f;
 
     // Determine when you should start cleaning
-    public int plateformThreshold= 12;      // nb plateform normal et moving
+    public int plateformThreshold= 9;      // nb plateform normal et moving
 
     private int nbBlackHole = 0;
     private int nbBreakingPlateform;

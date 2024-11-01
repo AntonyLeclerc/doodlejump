@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum AudioType{
     // Bgm,
@@ -53,13 +54,7 @@ public class SoundManager : MonoBehaviour
             //    bgm.PlayOneShot(clip);
             //    break;
             case AudioSourceType.Player:
-                if (type == AudioType.Shooting){
-                    playerSource.clip = clip;
-                    playerSource.Play();
-                }
-                else{
-                    playerSource.PlayOneShot(clip);
-                }
+                playerSource.PlayOneShot(clip);
                 break;
             case AudioSourceType.Game:
                 gameSource.PlayOneShot(clip);
