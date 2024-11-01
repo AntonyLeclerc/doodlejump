@@ -8,10 +8,14 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
+    [SerializeField]
+    private GameObject star;
     private float movementX;
     private float movementY;
     public float speed = 3.0f;
-    private float maxSpeed = 10.0f;
+    private float maxSpeed = 9.0f;
+
+    private bool is_stun = false;
 
     public Sprite[] playerSprites; // Tableau pour stocker les sprites
     public SpriteRenderer playerRenderer;
@@ -79,7 +83,6 @@ public class PlayerController : MonoBehaviour
 
         if ((gs == GAMESTATE.paused) || (gs == GAMESTATE.menu))
         {
-
             Vector2 pausedVelocity = Vector2.zero;
             rb.gameObject.GetComponent<Rigidbody2D>().velocity = pausedVelocity;
             rb.bodyType = RigidbodyType2D.Kinematic;
@@ -121,9 +124,12 @@ public class PlayerController : MonoBehaviour
 
     void OnMove(InputValue movementValue)
     {
-        Vector2 movementVector = movementValue.Get<Vector2>();
-        movementX = movementVector.x;
-        movementY = movementVector.y;
+        if (!is_stun)
+        {
+            Vector2 movementVector = movementValue.Get<Vector2>();
+            movementX = movementVector.x;
+            movementY = movementVector.y;
+        }
     }
 
     public float getCurrentScore()
@@ -135,6 +141,12 @@ public class PlayerController : MonoBehaviour
     public void setNewSprite(int index)
     {
         playerRenderer.sprite = playerSprites[index];
+    }
+
+    public void setStun()
+    {
+        is_stun = true;
+        star.GetComponent<starController>().setStarActive();
     }
 
     private IEnumerator resetSpriteAfterDelay(float value)

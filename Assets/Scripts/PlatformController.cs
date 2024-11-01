@@ -81,7 +81,7 @@ public class PlatformController : MonoBehaviour
         }
         if (go_tag == "movingPlatform")
         {
-            if(!(gs==GAMESTATE.paused))
+            if(!(gs==GAMESTATE.paused || gs==GAMESTATE.menu || gs==GAMESTATE.gameOver))
                 MovePlatform();
         }
 
