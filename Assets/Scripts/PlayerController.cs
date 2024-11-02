@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
     [SerializeField]
-    private GameObject star;
+    private GameObject stars;
     private float movementX;
     private float movementY;
     public float speed = 3.0f;
@@ -146,7 +146,8 @@ public class PlayerController : MonoBehaviour
     public void setStun()
     {
         is_stun = true;
-        star.GetComponent<starController>().setStarActive();
+        stars.GetComponent<starController>().setStarActive();
+        rb.velocity = Vector2.down;
     }
 
     private IEnumerator resetSpriteAfterDelay(float value)

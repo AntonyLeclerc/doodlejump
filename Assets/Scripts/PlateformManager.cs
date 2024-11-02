@@ -108,7 +108,7 @@ public class PlateformManager : MonoBehaviour
             }
         }
         float randomvalue = UnityEngine.Random.value;
-        if (randomvalue < blackHoleProba && nbBlackHole < 1 && playerController.getCurrentScore() > 4000)
+        if (randomvalue < blackHoleProba && nbBlackHole < 1 && (int)(20 * playerController.getCurrentScore()) > 4000)
         {
             // Debug.Log("random value : "+randomvalue+", blackHoleProba : "+blackHoleProba);
             generateBlackHole();

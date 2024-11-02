@@ -82,7 +82,7 @@ public class MonsterManager : MonoBehaviour
             }
         }
         float randomvalue = UnityEngine.Random.value;
-        if (randomvalue < spawnProb && nbMonster < monsterThreshold && playerController.getCurrentScore() > 1000)
+        if (randomvalue < spawnProb && nbMonster < monsterThreshold && (int)(20 * playerController.getCurrentScore()) > 1000)
         {
             generateMonsters();
         }

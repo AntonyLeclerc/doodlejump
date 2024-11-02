@@ -3167,7 +3167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50926794d76cc874993d90688d8c49c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  star: {fileID: 1041060585}
+  stars: {fileID: 1041060585}
   speed: 14
   playerSprites:
   - {fileID: 21300000, guid: 91b6990519ee2c544bfa47804b7cebe1, type: 3}

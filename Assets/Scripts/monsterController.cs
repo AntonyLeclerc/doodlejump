@@ -91,7 +91,6 @@ public class monsterController : MonoBehaviour
             if (this.transform.position.y > comp)
             {
                 player.GetComponent<BoxCollider2D>().enabled = false;
-                rbplayer.velocity = Vector2.zero;
                 player.GetComponent<PlayerController>().setStun();
             }
             else{
@@ -106,7 +105,7 @@ public class monsterController : MonoBehaviour
 
     private IEnumerator resetSpriteAfterDelay()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
         // Debug.Log("D�pliage de jambes");
 
         player.GetComponent<PlayerController>().setNewSprite(0);
