@@ -134,7 +134,8 @@ public class GameManager : MonoBehaviour
         
         PlayerController playerController = player.GetComponent<PlayerController>();
         finalScore = playerController.getCurrentScore();
-        gameOverScoreText.text = "your score : " + ((int)(10 * finalScore)).ToString();
+        Debug.Log("Final score : " + finalScore.ToString());
+        gameOverScoreText.text = "your score : " + ((int)(20 * finalScore)).ToString();
     }
 
     public void backToMenu()
