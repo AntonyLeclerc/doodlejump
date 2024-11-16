@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerController : MonoBehaviour
 {
@@ -63,18 +64,38 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(" Velocit " + rb.gameObject.GetComponent<Rigidbody2D>().velocity);
-
         Camera cam = Camera.main;
         Vector3 screenBottom = cam.ViewportToWorldPoint(new Vector3(0.5f, 0, cam.transform.position.z));
         bottomBound = screenBottom.y;
-        // Debug.Log(bottomBound); // Check Y minimale pour mourir
-        if (shoot.action.triggered){
+
+        if (shoot.action.triggered)
+        {
             setNewSprite(1);
             SoundManager.Instance.PlaySound(AudioType.Shooting, AudioSourceType.Player);
             StartCoroutine(resetSpriteAfterDelay(0.1f));
+
+            GameObject monster = GameObject.FindGameObjectWithTag("monster");
+
+            if (monster != null)
+            {
+                Vector3 playerPos = player.transform.position;
+                GameObject projectilePrefab = Resources.Load<GameObject>("projectile");
+                GameObject projectile = Instantiate(projectilePrefab, playerPos, Quaternion.identity);
+
+                ProjectileBehaviour projectileScript = projectile.GetComponent<ProjectileBehaviour>();
+                if (projectileScript != null)
+                {
+                    projectileScript.target = monster;
+                }
+            }
+
+            else
+            {
+                Debug.Log("Pas de monstre en vue");
+            }
         }
     }
+
     void FixedUpdate()
     {
         
