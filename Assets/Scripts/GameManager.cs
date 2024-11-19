@@ -150,6 +150,10 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("gameValuePrev", (int)gamestate);
         SceneManager.LoadScene(0);
     }
+    public void quitButton()
+    {
+        Application.Quit();
+    }
    
     private void OnApplicationQuit()
     {
