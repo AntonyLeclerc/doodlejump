@@ -49,19 +49,32 @@ public class PlatformController : MonoBehaviour
         // Direction actuelle des plateformes mobiles
         direction = Vector2.right;
 
-        this.gameManager = this.transform.parent.gameObject.GetComponent<PlateformManager>().getGameManagerPlateform();
+        if (go_tag != "spring")
+        {
+            this.gameManager = this.transform.parent.gameObject.GetComponent<PlateformManager>().getGameManagerPlateform();
+        }
         // Pour faire sauter le joueur s'il atterit sur une plateforme autre qu'une "breaking_platform"
-        if (go_tag == "normalPlatform" || go_tag == "movingPlatform")
+        
+        if (go_tag == "spring")
+        {
+            impulseForce = 15.0f;
+        }
+        
+        else if (go_tag == "normalPlatform" || go_tag == "movingPlatform")
         {
             impulseForce = 9.0f;
         }
+
+        
 
 
     }
 
     private void FixedUpdate()
     {
-        gs = gameManager.getGameState();
+        if (gameObject.tag != "spring"){
+            gs = gameManager.getGameState();
+        }
         // Gestion du mouvement de la plateforme
         float comp = player.transform.position.y - player.GetComponent<BoxCollider2D>().size.y / 2 - 0.0001f;
         if (go_tag != "breakingPlatform")

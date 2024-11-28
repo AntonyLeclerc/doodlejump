@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 screenBottom;
     private float bottomBound;
     public float currentScore;
+    private float highScore;
     private GameObject player;
     [SerializeField]
     private InputActionReference shoot;
@@ -114,7 +115,11 @@ public class PlayerController : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Dynamic;
             Vector2 movement = new Vector2(movementX, movementY);
             rb.AddForce(movement * speed);
-            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
+            Vector3 vel = rb.velocity;
+            
+            rb.velocity = new Vector3(Mathf.Clamp(vel.x, -maxSpeed, maxSpeed), vel.y, vel.z);
+
+            //rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
             Vector3 pos = player.transform.position;
             currentScore = Math.Max(pos.y, currentScore);
             scoreText.text = "Current score : " + ((int)(20 * currentScore)).ToString();
@@ -131,6 +136,17 @@ public class PlayerController : MonoBehaviour
             //Check GameOver
             if(pos.y < bottomBound)
             {
+                if (PlayerPrefs.HasKey("highscore"))
+                {
+                    if ((PlayerPrefs.GetFloat("highscore")) < currentScore)
+                    {
+                        PlayerPrefs.SetFloat("highscore", currentScore);
+                    }
+                }
+                else
+                {
+                    PlayerPrefs.SetFloat("highscore", currentScore);
+                }
                 gameManager.gameOver();
                 gs = gameManager.getGameState();
                 SoundManager.Instance.PlaySound(AudioType.Fall, AudioSourceType.Player);
@@ -139,7 +155,7 @@ public class PlayerController : MonoBehaviour
 
         if (gs == GAMESTATE.gameOver)
         {
-
+            
         }
     }
 

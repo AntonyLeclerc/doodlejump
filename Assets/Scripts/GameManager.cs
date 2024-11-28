@@ -18,16 +18,18 @@ public class GameManager : MonoBehaviour
     public GameObject pauseMenu;
 
     public GameObject player;
+    private Vector2 prePausePlayerVelocity;
     public TextMeshProUGUI gameOverScoreText;
+    public TextMeshProUGUI gameOverHighScoreText;
 
     private bool is_game_paused = false;
     private float finalScore;
+    private float highScore;
     //
 
     // Start is called before the first frame update
     void Start()
     {
-
         
         if (PlayerPrefs.HasKey("gameValuePrev"))
         {
@@ -112,14 +114,17 @@ public class GameManager : MonoBehaviour
     {
         if (!is_game_paused)
         {
+            prePausePlayerVelocity = player.GetComponent<Rigidbody2D>().velocity;
             Debug.Log("Pausing the game");
             gamestate = GAMESTATE.paused;
             is_game_paused = !is_game_paused;
+
             //startMenu.SetActive(true);
         }
 
         else
         {
+            player.GetComponent<Rigidbody2D>().velocity = prePausePlayerVelocity;
             Debug.Log("Unpausing the game");
             gamestate = GAMESTATE.play;
             is_game_paused = !is_game_paused;
@@ -130,12 +135,17 @@ public class GameManager : MonoBehaviour
     }
     public void gameOver()
     {
+        if (PlayerPrefs.HasKey("highscore"))
+        {
+            highScore = PlayerPrefs.GetFloat("highscore");
+        }
         gamestate = GAMESTATE.gameOver;
-        
         PlayerController playerController = player.GetComponent<PlayerController>();
         finalScore = playerController.getCurrentScore();
+        
         Debug.Log("Final score : " + finalScore.ToString());
         gameOverScoreText.text = "your score : " + ((int)(20 * finalScore)).ToString();
+        gameOverHighScoreText.text = "your high score : " + ((int)(20 * highScore)).ToString();
     }
 
     public void backToMenu()

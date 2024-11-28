@@ -1380,7 +1380,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &722369756
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1685,7 +1685,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &747374296
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2187,9 +2187,15 @@ MonoBehaviour:
   movingPlateformPrefab: {fileID: 749570492718841717, guid: 015dc4da9a53efe4f9e9c8b59e58f689, type: 3}
   breakingPlateformPrefab: {fileID: 3922471844733657220, guid: b0cabbe56fae56e41adc5913d92c07fb, type: 3}
   blackHolePrefab: {fileID: 4457272935756649735, guid: e4b982521c7ea0a408725357c53e5e26, type: 3}
+  prefabsList:
+  - {fileID: 2537095142620385276, guid: 34219fbc55c76df4297a34c4b49835a5, type: 3}
+  - {fileID: 749570492718841717, guid: 015dc4da9a53efe4f9e9c8b59e58f689, type: 3}
+  - {fileID: 3922471844733657220, guid: b0cabbe56fae56e41adc5913d92c07fb, type: 3}
+  springPrefab: {fileID: 325962921631236268, guid: 36854693dc9651b44b12eb1d41d2f168, type: 3}
   movingProba: 0.2
   breakingProba: 0.1
   blackHoleProba: 0.002
+  springProba: 0.05
   normalProba: 0
   plateformThreshold: 9
 --- !u!1 &1027324057
@@ -2505,7 +2511,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1049833430
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3909,6 +3915,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 632601228}
   player: {fileID: 1119690080}
   gameOverScoreText: {fileID: 1048931231}
+  gameOverHighScoreText: {fileID: 242493918}
 --- !u!4 &1550691155
 Transform:
   m_ObjectHideFlags: 0

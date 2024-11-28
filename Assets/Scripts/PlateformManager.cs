@@ -23,11 +23,13 @@ public class PlateformManager : MonoBehaviour
     [SerializeField]
     private GameObject blackHolePrefab;
 
-    private List<GameObject> prefabsList;
+    public List<GameObject> prefabsList = new List<GameObject>();
+    public GameObject springPrefab;
     // plateform spawn probabilities
     public float movingProba=0.2f;
     public float breakingProba=0.1f;
     public float blackHoleProba=0.002f;
+    public float springProba = 0.05f;
     public float normalProba;
     private float[] probs;
 
@@ -45,13 +47,9 @@ public class PlateformManager : MonoBehaviour
     void Start()
     {
         nbplateform = this.transform.childCount;
-        normalProba =1-movingProba-breakingProba;
-        probs =new float[]{ normalProba, movingProba, breakingProba};
-        prefabsList = new List<GameObject>();
-        //init prefab List
-        prefabsList.Add(normalPlateformPrefab);
-        prefabsList.Add(movingPlateformPrefab);
-        prefabsList.Add(breakingPlateformPrefab);
+        normalProba = 1-movingProba-breakingProba;
+        probs = new float[]{ normalProba, movingProba, breakingProba};
+        
     }
 
     private void FixedUpdate()
@@ -108,7 +106,7 @@ public class PlateformManager : MonoBehaviour
             }
         }
         float randomvalue = UnityEngine.Random.value;
-        if (randomvalue < blackHoleProba && nbBlackHole < 1 && (int)(20 * playerController.getCurrentScore()) > 4000)
+        if (randomvalue < blackHoleProba && nbBlackHole < 1 && (int)(20 * playerController.getCurrentScore()) > 1500)
         {
             // Debug.Log("random value : "+randomvalue+", blackHoleProba : "+blackHoleProba);
             generateBlackHole();
@@ -139,7 +137,15 @@ public class PlateformManager : MonoBehaviour
         int choice = Choose(probs);
     
         GameObject go = Instantiate(prefabsList[choice],spawnPos,Quaternion.identity,this.transform);
-        
+
+
+        float probSpring = UnityEngine.Random.Range(0f, 1f);
+        if (probSpring <= 0.05 && choice != 2)
+        {
+            Vector3 spawnPosSpring = new Vector3(spawnX, spawnY + 0.25f, 0);
+            GameObject spring = Instantiate(springPrefab, spawnPosSpring, Quaternion.identity, go.transform);
+        }
+
         // il faut au moins un platform différent de breakingPlatform qui peut être atteint
         if (choice == 2){
             // Debug.Log("platform choiced : "+prefabsList[choice]);

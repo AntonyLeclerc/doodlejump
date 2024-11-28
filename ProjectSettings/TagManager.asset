@@ -13,6 +13,7 @@ TagManager:
   - monster
   - projectile
   - movingMonster
+  - spring
   layers:
   - Default
   - TransparentFX
