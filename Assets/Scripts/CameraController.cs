@@ -12,8 +12,6 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //offset = this.transform.position - player.transform.position;
-        //offset = new Vector3(0, 0, -1);
     }
 
     // Update is called once per frame
@@ -23,7 +21,6 @@ public class CameraController : MonoBehaviour
     }
     private void LateUpdate()
     {
-        //transform.position = player.transform.position + offset;
         Vector3 pos = player.transform.position;
         if (pos.y > this.transform.position.y)
         {

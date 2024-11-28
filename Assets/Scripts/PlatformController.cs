@@ -49,18 +49,12 @@ public class PlatformController : MonoBehaviour
         // Direction actuelle des plateformes mobiles
         direction = Vector2.right;
 
-        if (go_tag != "spring")
-        {
-            this.gameManager = this.transform.parent.gameObject.GetComponent<PlateformManager>().getGameManagerPlateform();
-        }
+        this.gameManager = this.transform.parent.gameObject.GetComponent<PlateformManager>().getGameManagerPlateform();
         // Pour faire sauter le joueur s'il atterit sur une plateforme autre qu'une "breaking_platform"
         
-        if (go_tag == "spring")
-        {
-            impulseForce = 15.0f;
-        }
         
-        else if (go_tag == "normalPlatform" || go_tag == "movingPlatform")
+        
+        if (go_tag == "normalPlatform" || go_tag == "movingPlatform")
         {
             impulseForce = 9.0f;
         }
@@ -72,17 +66,12 @@ public class PlatformController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (gameObject.tag != "spring"){
-            gs = gameManager.getGameState();
-        }
+        gs = gameManager.getGameState();
         // Gestion du mouvement de la plateforme
         float comp = player.transform.position.y - player.GetComponent<BoxCollider2D>().size.y / 2 - 0.0001f;
         if (go_tag != "breakingPlatform")
         {
-            /*if (withDEBUG)
-            {
-                Debug.Log("plateform " + this.transform.position.y + " p :" + comp);
-            }*/
+            
             if (this.transform.position.y > comp)
             {
                 this.GetComponent<EdgeCollider2D>().enabled = false;
@@ -172,7 +161,6 @@ public class PlatformController : MonoBehaviour
 
                 rbplayer.AddForce(Vector2.up * impulseForce, ForceMode2D.Impulse); // Appliquer une force vers le haut pour sauter
 
-                // Debug.Log("Pliage de jambes");
                 player.GetComponent<PlayerController>().setNewSprite(2);
                 SoundManager.Instance.PlaySound(AudioType.Platform, AudioSourceType.Game);
                 StartCoroutine(resetSpriteAfterDelay());
@@ -200,7 +188,6 @@ public class PlatformController : MonoBehaviour
         float comp = player.transform.position.y - player.GetComponent<BoxCollider2D>().size.y / 2 - 0.0001f;
         if (this.transform.position.y < comp)
         {
-            // Debug.Log("plateform " + this.transform.position.y + " p :" + comp);
             is_desotrying = true; // Commencer le processus de destruction
             SoundManager.Instance.PlaySound(AudioType.BreakingPlatform, AudioSourceType.Game);
         }
@@ -209,7 +196,6 @@ public class PlatformController : MonoBehaviour
     private IEnumerator resetSpriteAfterDelay()
     {
         yield return new WaitForSeconds(1.0f);
-        // Debug.Log("D�pliage de jambes");
 
         player.GetComponent<PlayerController>().setNewSprite(0);
     }

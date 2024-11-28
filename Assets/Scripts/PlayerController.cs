@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
 
     private bool is_stun = false;
 
+    [Header("UI References")]
+    public float currentScore;
+    public TextMeshProUGUI scoreText;
     public Sprite[] playerSprites; // Tableau pour stocker les sprites
     public SpriteRenderer playerRenderer;
     // playerSprites[0] : Sprite normal
@@ -25,14 +28,12 @@ public class PlayerController : MonoBehaviour
     // playerSprites[2] : Sprite jambes pliees
 
 
-    public TextMeshProUGUI scoreText;
 
     private float leftBound;    // Limite gauche de l'�cran (plateforme bleue)
     private float rightBound;   // Limite droite de l'�cran (plateforme bleue)
 
     private Vector3 screenBottom;
     private float bottomBound;
-    public float currentScore;
     private float highScore;
     private GameObject player;
     [SerializeField]
@@ -88,11 +89,6 @@ public class PlayerController : MonoBehaviour
                 {
                     projectileScript.target = monster;
                 }
-            }
-
-            else
-            {
-                Debug.Log("Pas de monstre en vue");
             }
         }
     }

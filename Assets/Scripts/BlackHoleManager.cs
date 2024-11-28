@@ -50,7 +50,6 @@ public class BlackHoleManager : MonoBehaviour
     {
         if (other.gameObject == player)
         {
-            Debug.Log("Entered a black hole");
             isAttracting = true;
             rb.velocity = Vector2.zero; // Met la v�locit� du joueur � 0 pour ne pas "g�ner" le d�but de l'attarction par le trou noir
 

@@ -10,7 +10,6 @@ public class ProjectileBehaviour : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Le projectile a une cible : " + target);
     }
     // Update is called once per frame
     void Update()
@@ -30,7 +29,6 @@ public class ProjectileBehaviour : MonoBehaviour
     {
         if (collision.CompareTag("monster") || collision.CompareTag("movingMonster"))
         {
-            Debug.Log("Mort du monstre");
             Destroy(gameObject);
             Destroy(collision.gameObject);
             Destroy(target);

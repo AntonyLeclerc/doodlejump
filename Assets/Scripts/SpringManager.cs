@@ -17,10 +17,10 @@ public class SpringManager : MonoBehaviour
     private Vector2 direction;  // Direction du mouvement
     public bool withDEBUG = false;
     // Pour les plateformes qui se cassent
-    private float breaking_time = 0.0f;
     public bool is_desotrying = false;
     private Camera cam;
 
+    [Header("UI References")]
     public Sprite[] springSprites; // Tableau pour stocker les sprites
     public SpriteRenderer springRenderer;
     // springSrpites[0] : Sprite normal
@@ -58,10 +58,6 @@ public class SpringManager : MonoBehaviour
         {
             impulseForce = 15.0f;
         }
-
-
-
-
     }
 
     public void setNewSprite(int index)
@@ -87,9 +83,6 @@ public class SpringManager : MonoBehaviour
         {
             gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
         }
-
-
-
 
     }
 
@@ -125,31 +118,25 @@ public class SpringManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Fais sauter le joueur si la plateforme n'est pas une "breaking_platform"   
-        if (go_tag != "breakingPlatform")
+
+        if (collision.gameObject.GetComponent<Rigidbody2D>().velocity.y <= 0)
         {
 
+            rbplayer.AddForce(Vector2.up * impulseForce, ForceMode2D.Impulse); // Appliquer une force vers le haut pour sauter
 
-            if (collision.gameObject.GetComponent<Rigidbody2D>().velocity.y <= 0)
-            {
+            player.GetComponent<PlayerController>().setNewSprite(2);
+            setNewSprite(1);
+            SoundManager.Instance.PlaySound(AudioType.Spring, AudioSourceType.Game);
+            StartCoroutine(resetSpriteAfterDelay());
 
-                rbplayer.AddForce(Vector2.up * impulseForce, ForceMode2D.Impulse); // Appliquer une force vers le haut pour sauter
-
-                // Debug.Log("Pliage de jambes");
-                player.GetComponent<PlayerController>().setNewSprite(2);
-                setNewSprite(1);
-                SoundManager.Instance.PlaySound(AudioType.Spring, AudioSourceType.Game);
-                StartCoroutine(resetSpriteAfterDelay());
-
-            }
         }
+        
     }
     
 
     private IEnumerator resetSpriteAfterDelay()
     {
         yield return new WaitForSeconds(1.0f);
-        // Debug.Log("D�pliage de jambes");
 
         setNewSprite(0);
     }

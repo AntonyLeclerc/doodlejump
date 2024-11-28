@@ -11,13 +11,15 @@ public class GameManager : MonoBehaviour
 {
     private GAMESTATE gamestate = GAMESTATE.menu;
 
+    public GameObject player;
+
     //UI references
+    [Header("UI References")]
     public GameObject startMenu;
     public GameObject gameOverMenu;
     public GameObject playMenu;
     public GameObject pauseMenu;
 
-    public GameObject player;
     private Vector2 prePausePlayerVelocity;
     public TextMeshProUGUI gameOverScoreText;
     public TextMeshProUGUI gameOverHighScoreText;
@@ -65,10 +67,7 @@ public class GameManager : MonoBehaviour
     //Display Menus functions
     private void displayPauseMenu()
     {
-
-        Debug.Log("Game paused !");
         pauseMenu.SetActive(true);
-        //throw new NotImplementedException();
     }
 
     private void displayGameOver()
@@ -80,8 +79,6 @@ public class GameManager : MonoBehaviour
 
     private void playBehaviour()
     {
-        //nbplateform = plateformCreator.getNbplateform();
-        //if(nbplateform >)
         playMenu.SetActive(true);
         pauseMenu.SetActive(false);
     }
@@ -119,7 +116,6 @@ public class GameManager : MonoBehaviour
             gamestate = GAMESTATE.paused;
             is_game_paused = !is_game_paused;
 
-            //startMenu.SetActive(true);
         }
 
         else
@@ -128,7 +124,6 @@ public class GameManager : MonoBehaviour
             Debug.Log("Unpausing the game");
             gamestate = GAMESTATE.play;
             is_game_paused = !is_game_paused;
-            //startMenu.SetActive(false);
 
         }
 
@@ -143,7 +138,6 @@ public class GameManager : MonoBehaviour
         PlayerController playerController = player.GetComponent<PlayerController>();
         finalScore = playerController.getCurrentScore();
         
-        Debug.Log("Final score : " + finalScore.ToString());
         gameOverScoreText.text = "your score : " + ((int)(20 * finalScore)).ToString();
         gameOverHighScoreText.text = "your high score : " + ((int)(20 * highScore)).ToString();
     }

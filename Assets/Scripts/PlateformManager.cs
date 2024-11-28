@@ -56,14 +56,7 @@ public class PlateformManager : MonoBehaviour
     {
         if (gs == GAMESTATE.play)
         {
-            /*
-            if (nbplateform >= plateformThreshold)
-            {
-                // cleanPlateforms();
-                nbplateform = this.transform.childCount;
-            }
-            */
-            //generatePlateforms();
+            
             cleanPlateforms();
             nbplateform = this.transform.childCount;
         }
@@ -79,19 +72,15 @@ public class PlateformManager : MonoBehaviour
     {
         gs = gameManager.getGameState();
     }
-    // 
     private void cleanPlateforms()
     {
-        // Debug.Log("Calling Clean");
         nbplateform = this.transform.childCount;
-        Debug.Log("nb plateform = "+nbplateform);
         nbBreakingPlateform = getNbBreakingPlateform();
         Vector3 bottomScreen = new Vector3(Screen.width / 2, 0, 0);
         Vector3 bottom = Camera.main.ScreenToWorldPoint(bottomScreen);
         for (int i=0; i < nbplateform; i++)
         {
             GameObject child = this.transform.GetChild(i).gameObject;
-            //
             if (child.transform.position.y < bottom.y)
             {
                 if (child.tag == "blackHolePlatform")
@@ -108,7 +97,6 @@ public class PlateformManager : MonoBehaviour
         float randomvalue = UnityEngine.Random.value;
         if (randomvalue < blackHoleProba && nbBlackHole < 1 && (int)(20 * playerController.getCurrentScore()) > 1500)
         {
-            // Debug.Log("random value : "+randomvalue+", blackHoleProba : "+blackHoleProba);
             generateBlackHole();
         }
     }
@@ -127,9 +115,7 @@ public class PlateformManager : MonoBehaviour
         while (!checkValidity(spawnX,spawnY))
         {
             spawnX = UnityEngine.Random.Range(topLeft.x, topRight.x);
-            // spawnY = UnityEngine.Random.Range(center.y , topLeft.y + amplitude2);
             spawnY = topLeft.y + UnityEngine.Random.Range(-1.0f-amplitude, 1.0f+amplitude);
-            Debug.Log("Retry");
         }
         
         Vector3 spawnPos = new Vector3(spawnX, spawnY, 0);
@@ -140,7 +126,7 @@ public class PlateformManager : MonoBehaviour
 
 
         float probSpring = UnityEngine.Random.Range(0f, 1f);
-        if (probSpring <= 0.05 && choice != 2)
+        if (probSpring <= springProba && choice != 2)
         {
             Vector3 spawnPosSpring = new Vector3(spawnX, spawnY + 0.25f, 0);
             GameObject spring = Instantiate(springPrefab, spawnPosSpring, Quaternion.identity, go.transform);
@@ -148,16 +134,12 @@ public class PlateformManager : MonoBehaviour
 
         // il faut au moins un platform différent de breakingPlatform qui peut être atteint
         if (choice == 2){
-            // Debug.Log("platform choiced : "+prefabsList[choice]);
             float spawnX_norm = UnityEngine.Random.Range(topLeft.x, topRight.x);
-            // float spawnY = UnityEngine.Random.Range(center.y+amplitude, topLeft.y+ amplitude2);
             float spawnY_norm = UnityEngine.Random.Range(spawnY-0.1f, spawnY+0.1f);
             while (!checkValidity(spawnX_norm,spawnY_norm))
             {
                 spawnX_norm = UnityEngine.Random.Range(topLeft.x, topRight.x);
-                // spawnY = UnityEngine.Random.Range(center.y , topLeft.y + amplitude2);
                 spawnY_norm = UnityEngine.Random.Range(spawnY-0.1f, spawnY+0.1f);
-                Debug.Log("Retry norm");
             }
             
             Vector3 spawnPos_norm = new Vector3(spawnX_norm, spawnY_norm, 0);
@@ -175,14 +157,11 @@ public class PlateformManager : MonoBehaviour
         Vector3 screenCenter = new Vector3(Screen.width/2, Screen.height/2, 0);
         Vector3 center = Camera.main.ScreenToWorldPoint(screenCenter);
         float spawnX = UnityEngine.Random.Range(topLeft.x, topRight.x);
-        // float spawnY = UnityEngine.Random.Range(center.y+amplitude, topLeft.y+ amplitude2);
         float spawnY = topLeft.y + UnityEngine.Random.Range(-1.0f, 1.0f);
         while (!checkValidity(spawnX,spawnY))
         {
             spawnX = UnityEngine.Random.Range(topLeft.x, topRight.x);
-            // spawnY = UnityEngine.Random.Range(center.y , topLeft.y + amplitude2);
             spawnY = topLeft.y + UnityEngine.Random.Range(-1.0f-amplitude, 1.0f+amplitude);
-            Debug.Log("Retry");
         }
         
         Vector3 spawnPos = new Vector3(spawnX, spawnY, 0);
@@ -194,13 +173,11 @@ public class PlateformManager : MonoBehaviour
 
     private bool checkValidity(float spawnX, float spawnY)
     {
-        // Debug.Log("check");
         Vector3 pos = new Vector3(spawnX, spawnY,0);
         // Check distance
         float dist = 1.2f;
         foreach(Transform child in this.transform)
         {
-            // Debug.Log("dist = "+(child.position.y - pos.y));
             if (Vector3.Distance(child.position, pos) < dist)
             {
                 return false;
